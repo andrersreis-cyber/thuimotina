@@ -88,6 +88,11 @@ Criado via: `openclaw agents add sales-closer`
 | proximo_contato | timestamptz | Quando enviar proxima msg |
 | contexto_conversa | jsonb | Contexto/memoria da conversa com IA |
 | motivo_escalonamento | text | Motivo de passar pro humano (quando aplicavel) |
+| consentiu_whatsapp | boolean | Lead consentiu receber msgs (LGPD) |
+| consentiu_em | timestamptz | Quando consentiu |
+| locked_until | timestamptz | Lock otimista para evitar processamento duplo |
+| last_message_id | text | ID da ultima msg enviada (idempotencia) |
+| msgs_ia_count | int | Contador de msgs da IA na conversa atual |
 | created_at | timestamptz | Data de criacao |
 | updated_at | timestamptz | Ultima atualizacao |
 
@@ -266,7 +271,95 @@ Opcao B: Geracao automatica via IA baseada nos templates do Avello
 - 2 posts por dia (manha e tarde)
 - Variacao de tipos para nao cansar
 
-## 8. Metricas de Sucesso
+## 8. WhatsApp Anti-Ban e Compliance
+
+### 8.1 Rate Limiting (Protecao contra Ban)
+- **Numero novo:** Comecar com MAX 5 leads/dia na 1a semana
+- **Warm-up gradual:** Semana 1: 5/dia → Semana 2: 10/dia → Semana 3: 20/dia → Semana 4+: 30/dia
+- **Jitter aleatorio:** Delay de 2-8 minutos entre cada envio (nao enviar em rajada)
+- **Limite diario absoluto:** Nunca ultrapassar 50 novas conversas/dia
+- **Intervalo minimo:** 30 segundos entre mensagens para o mesmo lead
+- **Horario de envio:** Apenas entre 9h-21h America/Sao_Paulo
+
+### 8.2 Recuperacao de Ban
+- Campo `whatsapp_backup_number` na config do agente
+- Se numero principal for banido:
+  1. Alerta imediato ao Andre
+  2. Pausa todos os envios
+  3. Leads em etapas 2-5 ficam com status='pausado_ban'
+  4. Troca para numero backup (se disponivel)
+  5. Retoma envios com warm-up do zero
+
+### 8.3 LGPD Compliance
+- **Consentimento:** Campo `consentiu_whatsapp` (boolean) + `consentiu_em` (timestamptz) no lead_outreach
+- **Apenas leads com consentimento = true** entram na sequencia
+- **Opt-out deterministico:** Palavras-chave "SAIR", "PARAR", "CANCELAR", "NAO QUERO" → processadas SEM IA, direto no codigo
+  - Resposta automatica: "Pronto, voce nao recebera mais mensagens. Se mudar de ideia, e so mandar um oi!"
+  - Status → 'desistiu', todas as msgs futuras canceladas
+- **Primeira mensagem inclui:** "Voce esta recebendo essa mensagem porque se cadastrou no Avello. Se nao quiser receber, basta responder SAIR."
+- **Registro de consentimento** mantido no banco por 5 anos (requisito LGPD)
+
+### 8.4 Seguranca de API Keys
+- Supabase `anon` key + RLS policies (NUNCA service_role no plugin)
+- RLS policy: plugin so acessa leads do proprio tenant
+- Chaves armazenadas no OpenClaw secrets store (nao em codigo)
+- VPS IP allowlisted no Supabase (quando possivel)
+
+## 9. Guardrails da Conversa
+
+### 9.1 Limites de Conversa Livre
+- **Max 15 mensagens de IA** antes de escalonamento automatico
+- **Timeout:** Se lead nao responde por 2h durante conversa ativa, volta pra sequencia automatica
+- **Context window:** Manter ultimas 20 mensagens no contexto. Mensagens mais antigas → sumarizadas em 1 paragrafo
+
+### 9.2 O que o agente NAO pode fazer
+- Prometer features que nao existem
+- Garantir ROI especifico ("voce VAI ganhar X")
+- Oferecer descontos (apenas Andre pode)
+- Falar de concorrentes
+- Compartilhar dados de outros leads/clientes
+
+### 9.3 Deteccao de Conversao
+- **Mecanismo:** Cron job verifica tabela `subscriptions` (ou equivalente) no Supabase a cada 5 min
+- Quando detecta pagamento: status → 'convertido', encerra sequencia
+- Envia msg de parabens: "Seja bem-vindo ao Avello! Seu acesso ja esta liberado 🎉"
+
+### 9.4 Audio/Imagem Recebidos
+- Audio: Resposta padrao "Recebi seu audio! Pra te ajudar melhor, pode digitar sua duvida?"
+- Imagem: Resposta padrao "Vi sua imagem! Como posso te ajudar?"
+- Futuro: Integrar Whisper para transcricao de audio
+
+### 9.5 Handoff UX Detalhado
+- Andre responde pelo **mesmo numero de vendas** (via OpenClaw web interface ou app mobile)
+- Comando `/ia retomar` enviado via chat do OpenClaw (interface admin)
+- **Timeout de escalonamento:** Se Andre nao responde em 4h → lembrete. Se 24h → msg ao lead "Vou verificar isso e te retorno em breve"
+
+## 10. Monitoramento e Alertas
+
+### 10.1 Resumo Diario (enviado ao Andre via WhatsApp as 20h)
+- Leads novos detectados hoje
+- Mensagens enviadas / respostas recebidas
+- Conversoes do dia
+- Leads escalados pendentes
+- Erros (se houver)
+
+### 10.2 Alertas Imediatos
+- WhatsApp desconectado/banido
+- Supabase connection failed
+- Cron job nao executou por 30+ min
+- Lead irritado detectado (sentimento negativo)
+
+### 10.3 Timezone
+- Todos os cron jobs em `America/Sao_Paulo`
+- Telegram: posts as 9h e 15h horario de Brasilia
+- WhatsApp: envios apenas entre 9h-21h horario de Brasilia
+
+### 10.4 Idempotencia
+- Campo `last_message_id` na lead_outreach
+- Cron verifica se msg ja foi enviada antes de reenviar
+- Previne duplicatas em caso de crash/retry
+
+## 11. Metricas de Sucesso
 
 | Metrica | Target |
 |---------|--------|
@@ -277,7 +370,7 @@ Opcao B: Geracao automatica via IA baseada nos templates do Avello
 | Leads desistentes | < 30% |
 | Posts Telegram / semana | 14 |
 
-## 9. Dependencias
+## 12. Dependencias
 
 - [ ] Acesso ao Supabase do Avello (project ID, API keys)
 - [ ] Numero WhatsApp dedicado para vendas
@@ -287,7 +380,7 @@ Opcao B: Geracao automatica via IA baseada nos templates do Avello
 - [ ] Cases de sucesso reais para a sequencia
 - [ ] Tabela de objecoes comuns e respostas
 
-## 10. Fases de Implementacao
+## 13. Fases de Implementacao
 
 ### Fase 1: Infraestrutura (banco + agente)
 - Criar tabelas no Supabase do Avello
