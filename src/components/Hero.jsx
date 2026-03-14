@@ -55,9 +55,7 @@ export default function Hero() {
             Conhe&ccedil;a Nossa Hist&oacute;ria
           </a>
           <a
-            href="https://loja.thimotina.com.br"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/loja"
             className="rounded-full bg-primary px-8 py-3 text-sm font-medium uppercase tracking-wider text-bg transition-all duration-300 hover:bg-primary-light cursor-pointer"
           >
             Visite Nossa Loja

@@ -125,9 +125,7 @@ export default function Produtos() {
 
               {/* CTA */}
               <a
-                href="https://loja.thimotina.com.br"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/loja"
                 className="inline-block text-center rounded-full bg-primary text-bg font-semibold py-2.5 px-6 transition-all duration-300 hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
               >
                 Comprar

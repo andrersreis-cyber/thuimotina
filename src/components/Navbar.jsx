@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
@@ -78,9 +79,7 @@ export default function Navbar() {
           {/* Desktop CTA + Mobile hamburger */}
           <div className="flex items-center gap-4">
             <a
-              href="https://loja.thimotina.com.br"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/loja"
               className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[var(--color-primary-light)] px-6 py-2 text-sm font-sans font-semibold uppercase tracking-wider text-[var(--color-bg)] transition-all duration-300 hover:bg-[var(--color-primary)] hover:shadow-lg hover:shadow-[var(--color-primary-light)]/20"
             >
               Loja Online
@@ -175,9 +174,7 @@ export default function Navbar() {
           ))}
 
           <a
-            href="https://loja.thimotina.com.br"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/loja"
             className="mt-4 rounded-full bg-[var(--color-primary-light)] px-8 py-3 text-sm font-sans font-semibold uppercase tracking-wider text-[var(--color-bg)] transition-all duration-300 hover:bg-[var(--color-primary)]"
           >
             Loja Online
