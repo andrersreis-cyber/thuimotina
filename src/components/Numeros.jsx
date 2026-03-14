@@ -1,0 +1,51 @@
+export default function Numeros() {
+  const stats = [
+    { value: '110+', label: 'Anos de Tradição', suffix: '' },
+    { value: '4', label: 'Gerações', suffix: '' },
+    { value: '100%', label: 'Artesanal', suffix: '' },
+    { value: '1915', label: 'Fundação', suffix: '' },
+  ];
+
+  return (
+    <section className="relative py-20 md:py-28 overflow-hidden glow-accent">
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `radial-gradient(ellipse at center, rgba(161,98,7,0.06) 0%, transparent 70%)`,
+        }}
+      />
+
+      <div className="relative mx-auto max-w-6xl px-6">
+        {/* Top Divider */}
+        <div className="divider-gold mx-auto mb-16 w-full" />
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-8">
+          {stats.map((stat, index) => (
+            <div
+              key={stat.label}
+              className="reveal text-center"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              {/* Number */}
+              <p className="mb-3 text-5xl font-bold md:text-7xl font-serif text-gradient-gold">
+                {stat.value}
+              </p>
+
+              {/* Decorative line */}
+              <div className="mx-auto mb-3 h-px w-12 bg-gradient-to-r from-transparent via-primary-light to-transparent" />
+
+              {/* Label */}
+              <p className="text-sm uppercase tracking-widest font-sans text-text-muted">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Divider */}
+        <div className="divider-gold mx-auto mt-16 w-full" />
+      </div>
+    </section>
+  );
+}

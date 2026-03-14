@@ -1,159 +1,200 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap');
 
+/* ===== DESIGN TOKENS - THIMOTINA ===== */
 @theme {
-  --color-imperio-red: #E60000;
-  --color-imperio-red-dark: #cc0000;
-  --color-gold: #D4AF37;
-  --color-gold-dark: #B8960C;
-  --color-bg-dark: #0a0a0a;
-  --color-bg-card: #1a1a1a;
-  --color-bg-light: #2a2a2a;
+  --color-bg: #0C0A09;
+  --color-bg-surface: #1C1917;
+  --color-bg-elevated: #292524;
+  --color-primary: #A16207;
+  --color-primary-light: #D97706;
+  --color-primary-dark: #854D0E;
+  --color-accent: #B45309;
+  --color-text: #FAFAF9;
+  --color-text-muted: #A8A29E;
+  --color-text-subtle: #78716C;
+  --color-border: #44403C;
+  --color-border-light: #57534E;
 
-  --font-display: 'Anton', sans-serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Cormorant', Georgia, serif;
+  --font-sans: 'Montserrat', system-ui, sans-serif;
 }
 
-/* Classes Tailwind customizadas para cores de fundo */
-.bg-bg-dark { background-color: var(--color-bg-dark); }
-.bg-bg-card { background-color: var(--color-bg-card); }
-.bg-bg-light { background-color: var(--color-bg-light); }
-
-:root {
-  /* Mantendo variáveis CSS nativas para compatibilidade */
-  --color-gold: #D4AF37;
-  --color-gold-dark: #B8960C;
-  --color-bg-dark: #0a0a0a;
-  --color-bg-card: #1a1a1a;
-  --color-bg-light: #2a2a2a;
-  --color-imperio-red: #E60000;
-  --color-imperio-red-dark: #cc0000;
-}
-
-* {
-  box-sizing: border-box;
+/* ===== BASE STYLES ===== */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
   font-family: var(--font-sans);
-  background-color: var(--color-bg-dark);
-  color: #ffffff;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Tipografia Imperial */
-h1, h2, h3, h4, h5, h6, .font-display {
-  font-family: var(--font-display);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-/* Scrollbar personalizada */
+/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: var(--color-bg);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #3a3a3a;
-  border-radius: 4px;
+  background: var(--color-border);
+  border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-imperio-red); /* Hover vermelho */
+  background: var(--color-primary);
 }
 
-/* Animações */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ===== UTILITY CLASSES ===== */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #D97706, #F59E0B, #D97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.bg-gradient-dark {
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-surface) 100%);
 }
 
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+.bg-gradient-dark-reverse {
+  background: linear-gradient(180deg, var(--color-bg-surface) 0%, var(--color-bg) 100%);
 }
 
-@keyframes pulse-red {
-  0% { box-shadow: 0 0 0 0 rgba(230, 0, 0, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(230, 0, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(230, 0, 0, 0); }
+.glass-card {
+  background: rgba(28, 25, 23, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(161, 98, 7, 0.15);
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+.glass-card-hover {
+  transition: all 0.3s ease;
+}
+.glass-card-hover:hover {
+  background: rgba(28, 25, 23, 0.8);
+  border-color: rgba(161, 98, 7, 0.35);
+  box-shadow: 0 0 30px rgba(161, 98, 7, 0.1);
 }
 
-.animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
-.animate-slideUp { animation: slideUp 0.5s ease-out forwards; }
-.animate-scaleIn { animation: scaleIn 0.3s ease-out forwards; }
-.animate-pulse-red { animation: pulse-red 2s infinite; }
-.animate-shake { animation: shake 0.4s ease-in-out; }
+/* Section photo strip */
+.photo-strip {
+  position: relative;
+  overflow: hidden;
+}
+.photo-strip::before,
+.photo-strip::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.photo-strip::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--color-bg), transparent);
+}
+.photo-strip::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--color-bg), transparent);
+}
 
-/* Stagger delays (para listas) */
+/* Gold glow accent for sections */
+.glow-accent {
+  position: relative;
+}
+.glow-accent::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(217,119,6,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Stagger delays */
 .delay-100 { animation-delay: 100ms; }
 .delay-200 { animation-delay: 200ms; }
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
 
-/* Classes utilitárias personalizadas */
-.bg-gold { background-color: var(--color-gold); }
-.text-gold { color: var(--color-gold); }
-.border-gold { border-color: var(--color-gold); }
-.bg-imperio-red { background-color: var(--color-imperio-red); }
-.text-imperio-red { color: var(--color-imperio-red); }
-.border-imperio-red { border-color: var(--color-imperio-red); }
-.bg-card { background-color: var(--color-bg-card); }
-.bg-card-light { background-color: var(--color-bg-light); }
-
-/* Glassmorphism utilities */
-.glass {
-  background: rgba(26, 26, 26, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Mobile Responsive */
-@media (max-width: 640px) {
-  .ml-64 { margin-left: 0 !important; }
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
 }
 
-/* QR Scanner Styles */
-#qr-reader { width: 100% !important; border: none !important; }
-#qr-reader video { width: 100% !important; border-radius: 12px; }
-#qr-reader__scan_region { min-height: 250px; }
-#qr-reader__dashboard { padding: 10px !important; }
-#qr-reader__dashboard button {
-  background-color: var(--color-gold) !important;
-  color: black !important;
-  border: none !important;
-  padding: 12px 24px !important;
-  border-radius: 8px !important;
-  font-weight: bold !important;
-  margin: 5px !important;
-}
-
-/* Touch-friendly buttons */
-@media (hover: none) {
-  button { -webkit-tap-highlight-color: transparent; }
-  button:active { transform: scale(0.98); }
-}
-
-/* Safe area for iOS */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+/* ===== GOLDEN DIVIDER ===== */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
 }
