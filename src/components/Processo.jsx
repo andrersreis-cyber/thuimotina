@@ -6,7 +6,7 @@ export default function Processo() {
       number: '01',
       title: 'Colheita',
       description:
-        'Cana-de-açúcar selecionada, cultivada nas terras férteis de Afonso Cláudio.',
+        'Cana-de-açúcar selecionada e fresca, cultivada nas terras férteis de Afonso Cláudio.',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@ export default function Processo() {
       number: '02',
       title: 'Destilação',
       description:
-        'Processo artesanal em alambique de cobre, preservando aromas e sabores únicos.',
+        'Processo artesanal em alambique de cobre, tirando cabeça e cauda, preservando o coração, o que garante aroma e sabor únicos.',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@ export default function Processo() {
       number: '03',
       title: 'Envelhecimento',
       description:
-        'Descanso em barris de madeira nobre, onde o tempo faz sua mágica.',
+        'Descanso em barris de carvalho e umburana, onde o tempo faz sua mágica.',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ export default function Processo() {
       number: '04',
       title: 'Envase',
       description:
-        'Engarrafamento manual com controle de qualidade em cada garrafa.',
+        'Tira manual com controle de qualidade em cada garrafa.',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -149,15 +149,25 @@ export default function Processo() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-0">
           {steps.map((step, index) => (
             <div key={step.number} className="relative flex flex-col items-center">
-              {/* Dashed connector line (desktop only, between steps) */}
+              {/* Dashed connector line (desktop: horizontal, mobile: vertical) */}
               {index < steps.length - 1 && (
-                <div
-                  className="absolute top-12 left-[calc(50%+2.5rem)] hidden h-0 md:block"
-                  style={{
-                    width: 'calc(100% - 5rem)',
-                    borderTop: '2px dashed var(--color-primary)',
-                  }}
-                />
+                <>
+                  <div
+                    className="absolute top-12 left-[calc(50%+2.5rem)] hidden h-0 md:block"
+                    style={{
+                      width: 'calc(100% - 5rem)',
+                      borderTop: '2px dashed var(--color-primary)',
+                    }}
+                  />
+                  <div
+                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 md:hidden"
+                    style={{
+                      width: '2px',
+                      height: '10px',
+                      background: 'var(--color-primary)',
+                    }}
+                  />
+                </>
               )}
 
               {/* Step Card */}

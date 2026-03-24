@@ -3,7 +3,7 @@ export default function Numeros() {
     { value: '110+', label: 'Anos de Tradição', suffix: '' },
     { value: '4', label: 'Gerações', suffix: '' },
     { value: '100%', label: 'Artesanal', suffix: '' },
-    { value: '1915', label: 'Fundação', suffix: '' },
+    { value: '4', label: 'Expressões Únicas', suffix: '' },
   ];
 
   return (
@@ -16,6 +16,14 @@ export default function Numeros() {
       />
 
       <div className="relative mx-auto max-w-6xl px-6">
+        {/* Title */}
+        <h2 className="text-center font-serif text-4xl md:text-5xl text-gradient-gold mb-4">
+          Thimotina em Números
+        </h2>
+        <p className="text-center font-sans text-text-muted text-lg mb-12 max-w-xl mx-auto">
+          Uma história que se mede em gerações, tradição e qualidade
+        </p>
+
         {/* Top Divider */}
         <div className="divider-gold mx-auto mb-16 w-full" />
 

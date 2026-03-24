@@ -6,16 +6,19 @@ import premiumImg from '../assets/premium.webp'
 const produtos = [
   {
     nome: 'Cachaça Prata',
-    descricao: 'Pura e cristalina, destilada com cuidado artesanal. Sabor suave e marcante.',
+    descricao: 'Pura e cristalina, destilada com cuidado artesanal. Medalha Prata Expo Cachaça 2021.',
     preco: 60,
+    volume: '670ml',
     badge: 'Clássica',
+    medalha: 'Prata 2021',
     imagem: prataImg,
     portrait: true,
   },
   {
     nome: 'Cachaça Ouro',
-    descricao: 'Envelhecida em barris de carvalho, cor dourada e sabor encorpado.',
+    descricao: 'Envelhecida por 2 anos em barris de carvalho, cor dourada e sabor encorpado.',
     preco: 80,
+    volume: '700ml',
     badge: 'Envelhecida',
     imagem: ouroImg,
     portrait: false,
@@ -24,15 +27,18 @@ const produtos = [
     nome: 'Cachaça Amburana',
     descricao: 'Descansada em madeira de amburana, aroma único e final adocicado.',
     preco: 60,
+    volume: '700ml',
     badge: 'Especial',
     imagem: amburanaImg,
-    portrait: true,
+    portrait: false,
   },
   {
     nome: 'Premium 10 Anos',
-    descricao: 'Dez anos de envelhecimento. Nossa joia mais preciosa, edição limitada.',
+    descricao: 'Dez anos de envelhecimento em carvalho. Edição limitada premiada. Medalha Ouro Expo Cachaça 2020.',
     preco: 330,
+    volume: '700ml',
     badge: 'Exclusiva',
+    medalha: 'Ouro 2020',
     imagem: premiumImg,
     portrait: false,
   },
@@ -59,7 +65,9 @@ function ProductImage({ src, alt, portrait }) {
     <div
       className="h-[300px] overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, rgba(28,25,23,0.3) 0%, rgba(12,10,9,0.9) 100%)',
+        background: portrait
+          ? 'radial-gradient(ellipse at center, rgba(120,80,30,0.7) 0%, rgba(70,45,15,0.6) 40%, rgba(28,25,23,0.95) 80%)'
+          : 'linear-gradient(180deg, rgba(28,25,23,0.3) 0%, rgba(12,10,9,0.9) 100%)',
       }}
     >
       <img
@@ -108,27 +116,29 @@ export default function Produtos() {
 
             {/* Content */}
             <div className="p-6 flex flex-col flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs text-primary-light font-sans uppercase tracking-wider">
+                  {produto.volume}
+                </span>
+                {produto.medalha && (
+                  <span className="text-[10px] font-sans font-semibold uppercase tracking-wider bg-primary/20 text-primary-light px-2 py-0.5 rounded-full">
+                    {produto.medalha}
+                  </span>
+                )}
+              </div>
               <h3 className="font-serif text-2xl text-text mb-2">
                 {produto.nome}
               </h3>
-              <p className="font-sans text-sm text-text-muted mb-6 flex-1">
+              <p className="font-sans text-sm text-text-muted mb-4 flex-1">
                 {produto.descricao}
               </p>
-
-              {/* Price */}
-              <div className="flex items-baseline gap-1 mb-5">
-                <span className="text-sm text-text-muted font-sans">R$</span>
-                <span className="text-3xl font-bold text-primary-light font-serif">
-                  {produto.preco}
-                </span>
-              </div>
 
               {/* CTA */}
               <a
                 href="/loja"
-                className="inline-block text-center rounded-full bg-primary text-bg font-semibold py-2.5 px-6 transition-all duration-300 hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
+                className="inline-block text-center rounded-full border border-primary text-primary-light font-semibold py-2.5 px-6 transition-all duration-300 hover:bg-primary hover:text-bg cursor-pointer"
               >
-                Comprar
+                Saiba Mais
               </a>
             </div>
           </div>

@@ -1,6 +1,6 @@
 export default function Footer() {
   const navLinks = [
-    { label: 'Início', href: '#hero' },
+    { label: 'Início', href: '#inicio' },
     { label: 'História', href: '#historia' },
     { label: 'Produtos', href: '#produtos' },
     { label: 'Processo', href: '#processo' },
@@ -83,9 +83,7 @@ export default function Footer() {
               {produtos.map((produto) => (
                 <li key={produto}>
                   <a
-                    href="https://loja.thimotina.com.br"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/loja"
                     className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary-light)] transition-colors"
                   >
                     {produto}
@@ -115,13 +113,13 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
           <p className="text-[var(--color-text-muted)]">
-            &copy; 2024 Cachaça Thimotina. Todos os direitos reservados.
+            &copy; {new Date().getFullYear()} Cachaça Thimotina. Todos os direitos reservados.
           </p>
           <p className="text-[var(--color-text-subtle)]">
             CNPJ: 27.421.221/0001-90
           </p>
           <p className="text-[var(--color-text-subtle)]">
-            Beba com moderação
+            Beba com moderação. Venda proibida para menores de 18 anos.
           </p>
         </div>
       </div>

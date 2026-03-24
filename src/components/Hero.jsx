@@ -31,8 +31,10 @@ export default function Hero() {
         </span>
 
         {/* Heading */}
-        <h1 className="animate-fade-in-up delay-200 opacity-0 font-serif text-7xl font-bold leading-none md:text-9xl text-gradient-gold">
-          THIMOTINA
+        <h1 className="animate-fade-in-up delay-200 opacity-0 font-serif font-bold leading-none text-gradient-gold">
+          <span className="text-6xl sm:text-8xl md:text-[10rem]">T</span>
+          <span className="text-4xl sm:text-6xl md:text-8xl">HIMOTIN</span>
+          <span className="text-6xl sm:text-8xl md:text-[10rem]">A</span>
         </h1>
 
         {/* Subtitle */}
@@ -80,7 +82,7 @@ export default function Hero() {
       </div>
 
       {/* ── Selo 100% Capixaba ── */}
-      <span className="absolute bottom-6 right-6 z-10 rounded-full border border-border px-4 py-1.5 text-[10px] font-medium uppercase tracking-wider text-text-subtle opacity-60">
+      <span className="absolute bottom-6 right-6 z-10 rounded-full border border-primary/40 bg-bg/50 backdrop-blur-sm px-4 py-1.5 text-[10px] font-medium uppercase tracking-wider text-primary-light/80">
         100% Capixaba
       </span>
 

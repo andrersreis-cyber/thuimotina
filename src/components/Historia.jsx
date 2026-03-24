@@ -9,7 +9,7 @@ const milestones = [
       'Fundada por Francisco Thimóteo Dias, apenas 24 anos após a emancipação de Afonso Cláudio-ES. O nome herdou o sobrenome do fundador, e a caricatura da logomarca é uma homenagem à sua esposa.',
   },
   {
-    year: '1977',
+    year: '1947',
     title: 'Segunda Geração',
     description:
       'Nério Dias, filho do fundador, assume a administração e conduz a destilaria preservando a receita e a essência artesanal que define a Thimotina.',
@@ -83,8 +83,7 @@ export default function Historia() {
               A Cachaça Thimotina iniciou seu funcionamento em 1915, apenas 24 anos após a emancipação
               política do município de Afonso Cláudio–ES. Este fato faz dela uma das fábricas de cachaça mais
               antigas do Estado do Espírito Santo ainda em funcionamento. O processo mantém características
-              artesanais de fabricação, passados de geração em geração, com moagem de canas frescas e sem
-              queima, com fermentação natural e envelhecimento em barris de madeira{' '}
+              artesanais de fabricação, passados de geração em geração, com fermentação natural e envelhecimento em barris de madeira{' '}
               <span className="text-primary-light">(Carvalho Francês, Carvalho Americano e Amburana)</span>.
             </p>
           </div>

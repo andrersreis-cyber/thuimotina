@@ -23,7 +23,7 @@ const produtos = [
   {
     id: 'kit-ouro',
     nome: 'Kit Cachaça Ouro',
-    descricao: 'Três garrafas da nossa cachaça envelhecida em barris de carvalho. Cor dourada e sabor encorpado.',
+    descricao: 'Três garrafas da nossa cachaça envelhecida 2 anos em barris de carvalho. Cor dourada e sabor encorpado.',
     preco: 240,
     volume: '3x 700ml',
     badge: 'Kit',
@@ -63,7 +63,7 @@ const produtos = [
     preco: 200,
     volume: '3x 700ml',
     badge: 'Mais Vendido',
-    imagem: lojaLineupImg,
+    imagem: lojaTrioMixImg,
     destaque: false,
     categoria: 'kit',
     parcelas: '3x R$ 66,67',
@@ -75,7 +75,7 @@ const produtos = [
     preco: 410,
     volume: '3x 700ml',
     badge: 'Kit Premium',
-    imagem: lojaTrioMixImg,
+    imagem: lojaLineupImg,
     destaque: true,
     categoria: 'kit',
     parcelas: '3x R$ 136,67',
@@ -103,7 +103,7 @@ export default function Loja() {
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4 lg:px-10">
           <Link to="/" className="flex flex-col items-start leading-none">
             <span className="font-serif text-2xl font-bold tracking-[0.15em] bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary-light)] to-[var(--color-primary)] bg-clip-text text-transparent">
-              THIMOTINA
+              <span className="text-3xl">T</span>HIMOTIN<span className="text-3xl">A</span>
             </span>
             <span className="text-[var(--color-text-muted)] text-[10px] tracking-[0.25em] uppercase mt-0.5">
               loja online
@@ -113,7 +113,7 @@ export default function Loja() {
           <div className="flex items-center gap-4">
             <Link
               to="/"
-              className="hidden md:inline-flex items-center gap-2 text-sm font-sans text-text-muted hover:text-primary-light transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-sans text-text-muted hover:text-primary-light transition-colors"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 18l-6-6 6-6" />
@@ -177,11 +177,13 @@ export default function Loja() {
               }`}
             >
               {/* Image */}
-              <div className="relative h-[280px] overflow-hidden">
+              <div className="relative h-[320px] overflow-hidden bg-[#1a1510]">
                 <img
                   src={produto.imagem}
                   alt={produto.nome}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  className={`h-full w-full transition-transform duration-500 hover:scale-105 ${
+                    produto.id === 'kit-prata' ? 'object-cover object-[left_top]' : 'object-cover'
+                  }`}
                   loading="lazy"
                 />
                 <span className="absolute top-3 right-3 bg-primary text-bg text-xs font-semibold px-3 py-1 rounded-full">
@@ -215,7 +217,7 @@ export default function Loja() {
                     <div className="flex items-baseline gap-1">
                       <span className="text-sm text-text-muted font-sans">R$</span>
                       <span className="text-3xl font-bold text-primary-light font-serif">
-                        {produto.preco}
+                        {produto.preco},00
                       </span>
                     </div>
                     {produto.parcelas && (
@@ -235,7 +237,7 @@ export default function Loja() {
                 {/* CTA */}
                 <a
                   href={`https://api.whatsapp.com/send?phone=5527997022368&text=${encodeURIComponent(
-                    `Olá! Gostaria de comprar: ${produto.nome}${produto.preco ? ` (R$ ${produto.preco})` : ''}`
+                    `Olá! Gostaria de comprar: ${produto.nome}${produto.preco ? ` (R$ ${produto.preco},00)` : ''}`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -291,12 +293,42 @@ export default function Loja() {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
               <span className="font-sans text-sm font-semibold text-text uppercase tracking-wider">
-                100% Artesanal
+                Artesanal
               </span>
             </div>
             <p className="font-sans text-xs text-text-muted">
               Desde 1915, tradição em cada garrafa
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Como Funciona */}
+      <section className="py-16 px-6 glow-accent">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="font-serif text-3xl md:text-4xl text-gradient-gold mb-3">
+            Como Funciona
+          </h2>
+          <p className="font-sans text-text-muted text-sm mb-12">
+            Compre direto da fábrica em poucos passos
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { num: '1', title: 'Escolha', desc: 'Selecione seus produtos favoritos' },
+              { num: '2', title: 'WhatsApp', desc: 'Converse com nossa equipe' },
+              { num: '3', title: 'Pagamento', desc: 'Pix, cartão ou transferência' },
+              { num: '4', title: 'Entrega', desc: 'Receba em casa com segurança' },
+            ].map((step) => (
+              <div key={step.num} className="flex flex-col items-center gap-3">
+                <div className="w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center">
+                  <span className="font-serif text-xl font-bold text-primary-light">{step.num}</span>
+                </div>
+                <h3 className="font-sans text-sm font-semibold text-text uppercase tracking-wider">
+                  {step.title}
+                </h3>
+                <p className="font-sans text-xs text-text-muted">{step.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

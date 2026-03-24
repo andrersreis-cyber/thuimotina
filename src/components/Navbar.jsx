@@ -45,9 +45,9 @@ export default function Navbar() {
           {/* Logo */}
           <a href="#inicio" className="flex flex-col items-start leading-none">
             <span
-              className="font-serif text-2xl font-bold tracking-[0.15em] bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary-light)] to-[var(--color-primary)] bg-clip-text text-transparent"
+              className="font-serif font-bold tracking-[0.15em] bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary-light)] to-[var(--color-primary)] bg-clip-text text-transparent"
             >
-              THIMOTINA
+              <span className="text-3xl">T</span><span className="text-2xl">HIMOTIN</span><span className="text-3xl">A</span>
             </span>
             <span className="text-[var(--color-text-muted)] text-[10px] tracking-[0.25em] uppercase mt-0.5">
               desde 1915
@@ -149,8 +149,8 @@ export default function Navbar() {
         >
           {/* Logo in mobile menu */}
           <div className="flex flex-col items-center mb-4">
-            <span className="font-serif text-3xl font-bold tracking-[0.15em] bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary-light)] to-[var(--color-primary)] bg-clip-text text-transparent">
-              THIMOTINA
+            <span className="font-serif font-bold tracking-[0.15em] bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary-light)] to-[var(--color-primary)] bg-clip-text text-transparent">
+              <span className="text-4xl">T</span><span className="text-3xl">HIMOTIN</span><span className="text-4xl">A</span>
             </span>
             <span className="text-[var(--color-text-muted)] text-xs tracking-[0.25em] uppercase mt-1">
               desde 1915
