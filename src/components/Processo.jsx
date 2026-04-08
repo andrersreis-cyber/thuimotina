@@ -6,7 +6,7 @@ export default function Processo() {
       number: '01',
       title: 'Colheita',
       description:
-        'Cana-de-açúcar selecionada e fresca, cultivada nas terras férteis de Afonso Cláudio.',
+        'Cana-de-açúcar selecionada e fresca, cultivada nas terras férteis do Espírito Santo.',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ export default function Processo() {
       number: '04',
       title: 'Envase',
       description:
-        'Tira manual com controle de qualidade em cada garrafa.',
+        'Engarrafamento com controle de qualidade em cada garrafa.',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

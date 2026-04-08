@@ -139,7 +139,7 @@ export default function Memorial() {
               em conhecer e realizar um tour pela empresa e toda a sua infraestrutura em
               produção desde a matéria prima até o produto final acabado. A empresa criou
               o espaço visando também contribuir para a divulgação da cultura da cachaça
-              e história da família Dias &amp; Soares.
+              e história da família.
             </p>
           </div>
 

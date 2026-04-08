@@ -2,7 +2,7 @@ export default function Numeros() {
   const stats = [
     { value: '110+', label: 'Anos de Tradição', suffix: '' },
     { value: '4', label: 'Gerações', suffix: '' },
-    { value: '100%', label: 'Artesanal', suffix: '' },
+    { value: 'Artesanal', label: '', suffix: '' },
     { value: '4', label: 'Expressões Únicas', suffix: '' },
   ];
 
